@@ -1,0 +1,78 @@
+import assert from "node:assert/strict";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { createRequire } from "node:module";
+import path from "node:path";
+import { evidenceDirectory, runFfmpeg } from "./create-web-fixtures.mjs";
+
+const { chromium } = createRequire(import.meta.url)("playwright");
+const directory = path.join(evidenceDirectory, `iphone-${new Date().toISOString().replace(/[:.]/g, "-")}`);
+await mkdir(directory, { recursive: true });
+const results = [];
+const browser = await chromium.launch({ headless: true, channel: process.env.CHULIP_TEST_BROWSER ?? "chrome" });
+const context = await browser.newContext({ acceptDownloads: true, recordVideo: { dir: path.join(directory, "recordings") } });
+const page = await context.newPage();
+const errors = [];
+page.on("pageerror", error => errors.push(String(error)));
+try {
+  await page.goto(process.env.CHULIP_WEB_URL ?? "http://127.0.0.1:1421");
+  for (const [name, codec, pixels, rotated] of [["h264-mov", "libx264", "yuv420p", false], ["hevc-portrait", "libx265", "yuv420p", true], ["hevc-main10", "libx265", "yuv420p10le", false]]) {
+    console.log(`確認中: ${name}`);
+    const base = path.join(directory, `${name}-base.mov`);
+    const file = path.join(directory, `${name}.MOV`);
+    runFfmpeg(["-y", "-f", "lavfi", "-i", "testsrc2=size=320x180:rate=12:duration=3", "-f", "lavfi", "-i", "sine=frequency=440:duration=3", "-c:v", codec, "-preset", "ultrafast", "-pix_fmt", pixels, ...(codec === "libx265" ? ["-tag:v", "hvc1", "-x265-params", "pools=1"] : []), "-c:a", "aac", "-shortest", base]);
+    runFfmpeg(["-y", ...(rotated ? ["-display_rotation:v:0", "90"] : []), "-i", base, "-c", "copy", file]);
+    const previousUrl = await page.locator("video").count() ? await page.locator("video").getAttribute("src") : null;
+    const chooser = page.waitForEvent("filechooser");
+    await page.getByRole("button", { name: /動画を開く/ }).click();
+    await (await chooser).setFiles(file);
+    await page.getByText("動画を読み込みました", { exact: true }).waitFor({ timeout: 180000 });
+    await page.waitForFunction(previous => { const v = document.querySelector("video"); return v && v.getAttribute("src") !== previous && v.readyState >= 2; }, previousUrl, { timeout: 180000 });
+    const dimensions = await page.locator("video").evaluate(v => ({ width: v.videoWidth, height: v.videoHeight, duration: v.duration, inline: v.playsInline }));
+    const proxyBytes = await page.locator("video").evaluate(async v => Array.from(new Uint8Array(await (await fetch(v.src)).arrayBuffer())));
+    await writeFile(path.join(directory, `${name}-proxy.mp4`), new Uint8Array(proxyBytes));
+    console.log(JSON.stringify(dimensions));
+    assert.equal(dimensions.width, rotated ? 180 : 320);
+    assert.equal(dimensions.height, rotated ? 320 : 180);
+    assert.ok(Math.abs(dimensions.duration - 3) < 0.2);
+    assert.equal(dimensions.inline, true);
+    await page.getByRole("button", { name: "▲ 再生", exact: true }).click();
+    await page.waitForFunction(() => document.querySelector("video")?.currentTime > 0.5);
+    await page.locator("video").evaluate(v => v.pause());
+    await page.getByLabel("シーク", { exact: true }).fill("1.5");
+    await page.waitForFunction(() => Math.abs(document.querySelector("video").currentTime - 1.5) < 0.1);
+    await page.getByRole("tab", { name: "字幕", exact: true }).click();
+    await page.getByRole("checkbox", { name: "マウスポインタを表示", exact: true }).uncheck();
+    await page.getByRole("checkbox", { name: "マウス・キー入力字幕を表示", exact: true }).uncheck();
+    await page.getByRole("tab", { name: "画像保存", exact: true }).click();
+    const pngDownload = page.waitForEvent("download", { timeout: 120000 });
+    await page.getByRole("button", { name: /現在PNG保存/ }).click();
+    const pngPath = path.join(directory, `${name}.png`);
+    await (await pngDownload).saveAs(pngPath);
+    const png = await readFile(pngPath);
+    assert.equal(png.readUInt32BE(16), dimensions.width);
+    assert.equal(png.readUInt32BE(20), dimensions.height);
+    await page.getByRole("tab", { name: "時間", exact: true }).click();
+    await page.getByLabel("終了秒", { exact: true }).fill("2");
+    await page.getByLabel("開始秒", { exact: true }).fill("1");
+    await page.getByRole("tab", { name: "動画保存", exact: true }).click();
+    await page.getByRole("button", { name: /MP4 動画保存/ }).click();
+    const job = page.locator(".export-job").first();
+    await job.getByRole("link", { name: "ダウンロード", exact: true }).waitFor({ timeout: 180000 });
+    const downloading = page.waitForEvent("download");
+    await job.getByRole("link", { name: "ダウンロード", exact: true }).click();
+    const output = path.join(directory, `${name}-export.mp4`);
+    await (await downloading).saveAs(output);
+    const decode = runFfmpeg(["-i", output, "-f", "null", "-"]);
+    assert.match(decode.stderr, /Video: h264/);
+    assert.match(decode.stderr, /Audio: aac/);
+    assert.ok(decode.stderr.includes(`${dimensions.width}x${dimensions.height}`));
+    await page.screenshot({ path: path.join(directory, `${name}-editor.png`), fullPage: true });
+    results.push({ name, dimensions, status: "passed" });
+  }
+  assert.deepEqual(errors, []);
+  console.log(`iPhone形式検証成功: ${results.length}形式 / ${directory}`);
+} finally {
+  await context.close();
+  await browser.close();
+  await writeFile(path.join(directory, "results.json"), JSON.stringify({ results, errors }, null, 2));
+}

@@ -1,0 +1,300 @@
+.browser-settings-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgb(21 31 43 / 42%);
+}
+
+.browser-settings-dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(640px, 100%);
+  max-width: 100%;
+  max-height: calc(100dvh - 36px);
+  min-height: 0;
+  overflow: hidden;
+  color: #20252b;
+  background: #f6f7f8;
+  border: 1px solid #8996a2;
+  border-radius: 10px;
+  box-shadow: 0 15px 60px rgb(0 0 0 / 24%);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.browser-settings-dialog :focus-visible {
+  outline: 3px solid #3b7cba;
+  outline-offset: 2px;
+}
+
+.browser-settings-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex: 0 0 auto;
+  padding: 16px 20px;
+  border-bottom: 1px solid #c8d0d7;
+  background: #e8f0f6;
+}
+
+.browser-settings-header h1 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.browser-settings-header p {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #4c5967;
+}
+
+.browser-settings-dialog button {
+  min-height: 36px;
+  padding: 6px 13px;
+  border: 1px solid #9aa8b5;
+  border-radius: 5px;
+  color: #20252b;
+  background: linear-gradient(#fff, #e8ebee);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.browser-settings-dialog button:hover:not(:disabled) {
+  border-color: #4b82b2;
+  background: #e4f1ff;
+}
+
+.browser-settings-dialog button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.browser-settings-dialog .browser-settings-dismiss {
+  flex: 0 0 auto;
+  width: 36px;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.browser-settings-form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.browser-settings-body {
+  min-height: 0;
+  padding: 18px 20px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.browser-settings-body fieldset {
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 12px 15px 14px;
+  border: 1px solid #bec7cf;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.browser-settings-body fieldset:last-child {
+  margin-bottom: 0;
+}
+
+.browser-settings-body legend {
+  padding: 0 6px;
+  color: #344b60;
+  font-weight: 700;
+}
+
+.browser-settings-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.browser-settings-field:last-child {
+  margin-bottom: 0;
+}
+
+.browser-settings-value {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+
+.browser-settings-value input[type="number"],
+.browser-settings-value select {
+  width: 92px;
+  min-height: 34px;
+  padding: 4px 7px;
+  border: 1px solid #a4b0bb;
+  border-radius: 4px;
+  background: #fff;
+  color: #20252b;
+  font-size: 14px;
+}
+
+.browser-settings-value select {
+  width: 142px;
+}
+
+.browser-settings-value input[type="color"] {
+  width: 55px;
+  height: 34px;
+  padding: 3px;
+  border: 1px solid #a4b0bb;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.browser-settings-color-code {
+  min-width: 66px;
+  font-family: ui-monospace, monospace;
+}
+
+.browser-settings-check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 36px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.browser-settings-check input {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: #3a79b0;
+}
+
+.browser-settings-note {
+  margin: 0 0 13px;
+  font-size: 12px;
+  color: #526170;
+}
+
+.browser-settings-body fieldset .browser-settings-note:last-child {
+  margin-bottom: 0;
+}
+
+.browser-settings-feedback {
+  flex: 0 0 auto;
+  padding: 0 20px;
+  font-size: 12px;
+  color: #245d37;
+  overflow-wrap: anywhere;
+}
+
+.browser-settings-feedback p {
+  margin: 0 0 12px;
+}
+
+.browser-settings-error {
+  color: #9b2730;
+}
+
+.browser-settings-footer {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid #c8d0d7;
+  background: #edf0f3;
+}
+
+.browser-settings-dialog .browser-settings-save {
+  background: #b8daf6;
+  border-color: #769fbe;
+  font-weight: 700;
+}
+
+.browser-settings-help-section + .browser-settings-help-section {
+  margin-top: 22px;
+}
+
+.browser-settings-help-section h2 {
+  margin: 0 0 8px;
+  color: #344b60;
+  font-size: 15px;
+}
+
+.browser-settings-help-section p {
+  margin: 8px 0;
+}
+
+.browser-settings-help-section ol {
+  margin: 0;
+  padding-left: 23px;
+}
+
+.browser-settings-help-section table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.browser-settings-help-section th,
+.browser-settings-help-section td {
+  padding: 8px;
+  border: 1px solid #c8d0d7;
+  text-align: left;
+  vertical-align: top;
+}
+
+.browser-settings-help-section th {
+  width: 130px;
+  background: #eaf1f7;
+}
+
+.browser-settings-help-section kbd {
+  display: inline-block;
+  padding: 0 4px;
+  border: 1px solid #a9b6c2;
+  border-radius: 3px;
+  background: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .browser-settings-backdrop { padding: 8px; }
+  .browser-settings-dialog { max-height: calc(100dvh - 16px); }
+  .browser-settings-header { padding: 12px; }
+  .browser-settings-header h1 { font-size: 17px; }
+  .browser-settings-body { padding: 14px 12px; }
+  .browser-settings-body fieldset { padding: 10px; }
+  .browser-settings-field { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .browser-settings-value { max-width: 100%; flex-wrap: wrap; }
+  .browser-settings-feedback { padding: 0 12px; }
+  .browser-settings-footer { padding: 10px 12px; gap: 6px; }
+  .browser-settings-dialog button { padding-inline: 9px; }
+  .browser-settings-help-section th { width: 102px; }
+  .browser-settings-help-section th, .browser-settings-help-section td { padding: 6px; }
+}
+
+@media (max-height: 420px) {
+  .browser-settings-backdrop { padding: 6px; }
+  .browser-settings-dialog { max-height: calc(100dvh - 12px); }
+  .browser-settings-header { padding-block: 8px; }
+  .browser-settings-header p { display: none; }
+  .browser-settings-footer { padding-block: 8px; }
+}

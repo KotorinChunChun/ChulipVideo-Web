@@ -1,0 +1,244 @@
+/* styles.css が後から読み込まれても、ブラウザ版だけ固定寸法を解除する。 */
+.app-shell.browser-editor {
+  --browser-preview-height: clamp(180px, 36vh, 420px);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.browser-editor .source-toolbar {
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  min-width: 0;
+  min-height: 50px;
+  max-width: 100%;
+}
+
+.browser-editor .toolbar-actions {
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.browser-editor .source-path { min-width: 0; flex-basis: 140px; }
+.browser-editor .source-toolbar .toolbar-actions-right { margin-left: auto; }
+.browser-editor .tool-button { max-width: 100%; white-space: normal; }
+.browser-editor .media-metric { min-width: 0; }
+
+.browser-editor .video-stage {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  height: var(--browser-preview-height);
+  min-height: 180px;
+  align-items: center;
+  background: #22272d;
+}
+
+.browser-editor .video-content {
+  flex: 0 1 auto;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  max-width: 100%;
+  max-height: var(--browser-preview-height);
+}
+
+.browser-editor .real-video-preview {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: var(--browser-preview-height);
+  object-fit: contain;
+}
+
+.browser-editor .logic-status {
+  flex: 0 0 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  padding: 6px 12px;
+  background: #edf4f8;
+}
+
+.browser-editor .control-dock { flex: 0 0 auto; min-width: 0; max-width: 100%; overflow: visible; }
+.browser-editor .transport-row { height: auto; min-height: 40px; flex-wrap: wrap; gap: 6px; padding: 4px 0 8px; }
+.browser-editor .toggle { white-space: normal; }
+.browser-editor .toggle input { flex: 0 0 14px; }
+.browser-editor .panel { min-width: 0; max-width: 100%; height: auto; }
+.browser-editor .time-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.browser-editor .time-editor { min-width: 0; padding-inline: 6px; }
+.browser-editor .time-editor-row { min-width: 0; }
+.browser-editor .time-editor-row button { flex: 0 0 36px; width: 36px; }
+.browser-editor .time-editor-row input { flex: 1 1 0; min-width: 0; max-width: 155px; width: 100%; font-size: 12px; }
+
+.browser-editor .crop-content {
+  height: auto;
+  min-height: 63px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.browser-editor .crop-content > * { flex-shrink: 0; max-width: 100%; }
+.browser-editor .crop-content .tool-button { min-height: 36px; }
+.browser-editor .numeric-pair,
+.browser-editor .select-pair,
+.browser-editor .preset-actions { min-width: 0; }
+
+.browser-editor .export-grid {
+  height: auto;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 0.9fr);
+  align-items: start;
+}
+
+.browser-editor .export-section { min-width: 0; max-width: 100%; flex-direction: column; gap: 6px; padding: 4px 8px; }
+.browser-editor .export-section h2 { position: static; margin: 0 0 3px; font-weight: 700; }
+.browser-editor .export-section .tool-button { flex: 0 0 auto; width: 100%; min-width: 0; min-height: 32px; padding: 5px 8px; white-space: normal; }
+.browser-editor .export-section small { overflow-wrap: anywhere; }
+.browser-editor .overlay-toggle-list { min-width: 0; }
+.browser-editor .export-options { flex-wrap: wrap; flex-direction: row; justify-content: flex-start; }
+.browser-editor .export-options input { width: 46px; }
+.browser-editor .export-jobs { max-height: 140px; overflow-y: auto; }
+.browser-editor .export-job { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; }
+.browser-editor .export-job > span:nth-of-type(2) { flex: 1 1 180px; min-width: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.browser-editor .export-job progress { max-width: 100%; }
+.browser-editor .export-job a { max-width: 100%; overflow-wrap: anywhere; padding: 4px 10px; background: #d7eaf7; color: #134773; border: 1px solid #6495b4; }
+
+.browser-editor .browser-range-inputs { display: flex; flex-wrap: wrap; gap: 6px 14px; padding-top: 8px; align-items: center; }
+.browser-editor .browser-range-inputs label { display: inline-flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.browser-editor .browser-range-inputs input { min-width: 0; max-width: 100%; width: 95px; }
+.browser-editor .browser-range-inputs button { min-height: 28px; max-width: 100%; }
+.browser-editor .browser-empty { display: flex; flex-direction: column; gap: 14px; align-items: center; justify-content: center; min-width: 0; max-width: 100%; color: #e8eef4; padding: 18px; text-align: center; overflow-wrap: anywhere; }
+.browser-editor .browser-empty strong { font-size: 25px; }
+.browser-editor .browser-empty small { color: #c2ccd7; }
+.browser-editor .browser-operation-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; font-family: "Meiryo", "Noto Sans JP", sans-serif; z-index: 2; }
+.browser-editor .crop-rectangle { z-index: 3; }
+
+@media (max-width: 1000px) {
+  .browser-editor .source-path { order: 3; flex-basis: 100%; }
+  .browser-editor .export-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .browser-editor .overlay-options { grid-column: 1 / -1; flex-direction: row; flex-wrap: wrap; gap: 8px 12px; align-items: center; border-right: 0; border-bottom: 1px solid #bbb; padding-bottom: 10px; }
+  .browser-editor .overlay-options h2 { flex-basis: 100%; }
+  .browser-editor .overlay-options .tool-button { width: auto; }
+  .browser-editor .media-info { font-size: 11px; }
+}
+
+@media (max-width: 650px) {
+  .browser-editor .source-toolbar .toolbar-actions-right { margin-left: 0; }
+  .browser-editor .time-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .browser-editor .time-editor { border-right: 0; padding-inline: 0; }
+  .browser-editor .export-grid { grid-template-columns: minmax(0, 1fr); }
+  .browser-editor .export-section { border-right: 0; border-bottom: 1px solid #bbb; padding-block: 8px; }
+  .browser-editor .export-section:last-child { border-bottom: 0; }
+  .browser-editor .crop-content { justify-content: flex-start; gap: 6px; }
+  .browser-editor .vertical-separator { display: none; }
+}
+
+.transport-buttons { display: contents; }
+.editing-panels { display: contents; }
+.mobile-panel-tabs { display: none; }
+.browser-editor .timeline { flex: 0 0 46px; margin-inline: 8px; }
+.browser-editor .timeline-seek { opacity: 1; touch-action: none; accent-color: #147caa; top: 13px; height: 30px; }
+.browser-editor .timeline-track { pointer-events: none; }
+
+/* 動画・移動操作は画面内に固定し、編集内容だけを切り替える。 */
+@media (max-width: 650px), (max-height: 500px) and (pointer: coarse) {
+  .app-shell.browser-editor {
+    height: 100dvh; overflow: hidden; scrollbar-gutter: auto;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --browser-preview-height: clamp(90px, 25dvh, 200px);
+  }
+  .browser-editor .source-toolbar { min-height: 0; padding: 4px 6px; gap: 4px; }
+  .browser-editor .toolbar-actions { gap: 3px; }
+  .browser-editor .source-toolbar .tool-button { min-height: 30px; height: 30px; padding: 2px 5px; font-size: 12px; min-width: 26px; }
+  .browser-editor .source-toolbar .toolbar-actions-right { margin-left: auto; }
+  .browser-editor .source-path { order: 3; flex-basis: 100%; min-height: 20px; height: 20px; padding: 0 4px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .browser-editor .media-info, .browser-editor .media-metric { display: none; }
+  .browser-editor .video-stage { min-height: 0; }
+  .browser-editor .logic-status { padding: 3px 8px; font-size: 11px; line-height: 16px; max-height: 38px; overflow: auto; }
+  .browser-editor .control-dock { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; padding: 0 6px 4px; overflow: hidden; }
+  .browser-editor .transport-row { flex: 0 0 auto; gap: 5px 10px; padding: 3px 0; min-height: 0; font-size: 12px; }
+  .browser-editor .transport-buttons { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; width: 100%; }
+  .browser-editor .transport-buttons .tool-button { padding: 3px 0; min-width: 0; min-height: 36px; height: 36px; font-size: 11px; white-space: nowrap; }
+  .browser-editor .speed-control { gap: 4px; }
+  .browser-editor .speed-control input { width: 48px; height: 26px; font-size: 16px; }
+  .browser-editor .timeline { flex-basis: 42px; margin: 0 5px; }
+  .browser-editor .timeline-seek { top: 9px; height: 32px; }
+  .browser-editor .timeline-label { font-size: 10px; top: 0; }
+  .browser-editor .mobile-panel-tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 3px; flex: 0 0 36px; padding-bottom: 3px; }
+  .browser-editor .mobile-panel-tabs button { border: 1px solid #a0b5c2; background: #e7eff4; border-radius: 5px 5px 0 0; padding: 4px 0; font-size: 12px; }
+  .browser-editor .mobile-panel-tabs button[aria-selected="true"] { background: #176e96; color: white; font-weight: bold; }
+  .browser-editor .editing-panels { display: block; flex: 1 1 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .browser-editor .editing-panels > .panel { margin: 0; padding: 4px 6px; }
+  .browser-editor:not([data-mobile-panel="trim"]) .trim-panel,
+  .browser-editor:not([data-mobile-panel="crop"]) .crop-panel,
+  .browser-editor[data-mobile-panel="trim"] .export-panel,
+  .browser-editor[data-mobile-panel="crop"] .export-panel,
+  .browser-editor:not([data-mobile-panel="overlay"]) .overlay-options,
+  .browser-editor:not([data-mobile-panel="still"]) .still-output,
+  .browser-editor:not([data-mobile-panel="video"]) .video-output { display: none; }
+  .browser-editor .export-grid { display: block; }
+  .browser-editor .export-panel > legend { display: none; }
+  .browser-editor .export-section { border: 0; padding: 4px; }
+  .browser-editor .export-section .tool-button { min-height: 36px; }
+  .browser-editor .time-grid { display: flex; flex-direction: column; gap: 4px; }
+  .browser-editor .time-editor { display: flex; align-items: center; justify-content: space-between; gap: 4px; padding: 0; }
+  .browser-editor .time-editor strong { font-size: 11px; margin: 0; white-space: nowrap; }
+  .browser-editor .time-editor-row { flex: 0 1 205px; }
+  .browser-editor .time-editor-row input { max-width: none; font-size: 13px; }
+  .browser-editor .time-editor-row button { height: 30px; }
+  .browser-editor .browser-range-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding-top: 6px; font-size: 12px; }
+  .browser-editor .browser-range-inputs label { flex-wrap: nowrap; }
+  .browser-editor .browser-range-inputs input { width: 65px; font-size: 16px; }
+  .browser-editor .browser-range-inputs button { font-size: 12px; min-height: 30px; }
+  .browser-editor .crop-content { gap: 5px; font-size: 12px; }
+  .browser-editor .crop-content input, .browser-editor .crop-content select { font-size: 16px; }
+  .browser-editor .numeric-pair input { width: 64px; }
+  .browser-editor .select-pair { max-width: 145px; }
+  .browser-editor .preset-actions { flex-direction: row; gap: 4px; }
+  .browser-editor .preset-actions button { font-size: 12px; }
+  .browser-editor .browser-empty { gap: 6px; padding: 8px; font-size: 12px; }
+  .browser-editor .browser-empty strong { font-size: 19px; }
+}
+
+.browser-editor .timeline-seek { appearance: none; -webkit-appearance: none; background: transparent; }
+.browser-editor .timeline-seek::-webkit-slider-runnable-track { height: 6px; background: transparent; }
+.browser-editor .timeline-seek::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; margin-top: -7px; border-radius: 50%; background: #147caa; border: 2px solid white; box-shadow: 0 0 0 1px #147caa; }
+.browser-editor .timeline-seek::-moz-range-track { height: 6px; background: transparent; }
+.browser-editor .timeline-seek::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #147caa; border: 2px solid white; }
+.browser-editor .timeline-track { top: 25px; }
+.browser-editor .timeline-label { top: 0; }
+@media (max-width: 650px), (max-height: 500px) and (pointer: coarse) {
+  .browser-editor .timeline-track { top: 22px; }
+}
+
+/* PCも同じタブで編集領域を切り替え、動画の高さを確保する。 */
+@media (min-width: 651px) {
+  .app-shell.browser-editor { height: 100dvh; overflow: hidden; scrollbar-gutter: auto; --browser-preview-height: clamp(120px, 32dvh, 420px); }
+  .browser-editor .control-dock { display: flex; flex-direction: column; flex: 1 1 0; min-height: 0; overflow: hidden; }
+  .browser-editor .transport-row { flex: 0 0 auto; }
+  .browser-editor .mobile-panel-tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; flex: 0 0 38px; padding: 0 8px 3px; }
+  .browser-editor .mobile-panel-tabs button { border: 1px solid #a0b5c2; background: #e7eff4; border-radius: 5px 5px 0 0; padding: 4px; font-size: 14px; }
+  .browser-editor .mobile-panel-tabs button[aria-selected="true"] { background: #176e96; color: white; font-weight: bold; }
+  .browser-editor .editing-panels { display: block; flex: 1 1 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .browser-editor .editing-panels > .panel { margin-block: 0; padding-block: 8px; }
+  .browser-editor:not([data-mobile-panel="trim"]) .trim-panel,
+  .browser-editor:not([data-mobile-panel="crop"]) .crop-panel,
+  .browser-editor[data-mobile-panel="trim"] .export-panel,
+  .browser-editor[data-mobile-panel="crop"] .export-panel,
+  .browser-editor:not([data-mobile-panel="overlay"]) .overlay-options,
+  .browser-editor:not([data-mobile-panel="still"]) .still-output,
+  .browser-editor:not([data-mobile-panel="video"]) .video-output { display: none; }
+  .browser-editor .export-grid { display: block; }
+  .browser-editor .export-panel > legend { display: none; }
+  .browser-editor .export-section { border: 0; padding: 8px; max-width: 720px; margin-inline: auto; }
+  .browser-editor .overlay-options { display: flex; flex-direction: row; flex-wrap: wrap; }
+  .browser-editor .export-section .tool-button { min-height: 36px; }
+}

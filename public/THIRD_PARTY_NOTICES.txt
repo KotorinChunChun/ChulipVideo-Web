@@ -1,0 +1,21 @@
+ChulipVideo Web v0.3.0
+
+動画はブラウザ内で処理します。映像キャプチャ画面は含みません。
+入力容量に固定上限はありません。初回は同じサイトから動画処理エンジンを読み込みます。
+
+同梱ソフトウェアとライセンス:
+- React / React DOM 19.2.4: MIT (licenses/react-LICENSE.txt)
+  https://github.com/facebook/react
+- @tauri-apps/api 2.11.1: MIT OR Apache-2.0 (licenses/tauri-LICENSE.txt)
+  https://github.com/tauri-apps/tauri
+- @ffmpeg/ffmpeg 0.12.15: MIT (licenses/ffmpeg-LICENSE.txt)
+  https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.15
+- @ffmpeg/core 0.12.10: GPL-2.0-or-later (licenses/ffmpeg-core-LICENSE.txt)
+  https://github.com/ffmpegwasm/ffmpeg.wasm
+  https://github.com/ffmpegwasm/ffmpeg.wasm/releases/tag/v0.12.10
+- fflate 0.8.3: MIT (licenses/fflate-LICENSE.txt)
+  https://github.com/101arrowz/fflate
+- Noto Sans JP Regular: SIL Open Font License 1.1 (vendor/fonts/OFL.txt)
+  https://github.com/notofonts/noto-cjk/blob/main/Sans/SubsetOTF/JP/NotoSansJP-Regular.otf
+
+ツール一覧: https://excel-chunchun.sakura.ne.jp/test/
